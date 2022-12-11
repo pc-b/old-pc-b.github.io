@@ -8,6 +8,10 @@
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <link rel="stylesheet" href="article1.css">
     <title>Article</title>
+
+    <link href="../../lity/dist/lity.css" rel="stylesheet">
+    <script src="../../lity//vendor/jquery.js"></script>
+    <script src="../../lity/dist/lity.js"></script>
 </head>
 
 <body>
@@ -28,9 +32,83 @@
             <hr class="title-hr">
 
             <p class="b-text">
-                Welcome to my first real blog post on this site. As tax season sneaks up on us, I thought it would be a great idea to start getting all my resource
-                ready to streamline the painful experience of doing my taxes. A quick search in my gmail results in me finding my paystub in a PDF file.
+                Welcome to my first real blog post on this site. As tax season sneaks up on us, I thought it would be a great idea to start getting all my resources
+                ready to streamline the painful experience of doing my taxes. A quick search in my gmail results in me finding my paystub in a PDF file. All right,
+                should be nice and easy...
             </p>
+            <img src="./p1.png" data-lity class="photo">
+           
+            <hr class="text-hr">
+            <p class="b-text">
+                Welp... what now... I could either call my employer and get the password from them on monday when their office is open, or... I could crack the
+                password myself... Alright time to start cracking!
+            </p>
+
+            <p class="b-text">
+                I first installed JohnTheRipper with: <br><code>git clone https://github.com/magnumripper/JohnTheRipper.git</code><br>
+                <br>Then, I navigated to the directory I installed with: <br><code>cd ./JohnTheRipper/src</code><br>
+                <br>And built it with: <br><code>./configure && make</code>
+                
+                
+            </p>
+            <hr class="text-hr">
+
+            <p class="b-text">
+                <br>For some reason, when I navigated to <code>cd src</code>, I did not find the script I needed, pdf2john.pl. Typing pdf2john in my terminal prompted
+                me to install it, and it works as intended after installing it.<br><br>
+                Now, we have to generate a hash from the PDF so john has something to crack! For this example, I have downloaded a random pdf and set the password of
+                sample123 and sample123 for user and owner passwords respectively as I knew it was in the wordlist already. For my paystub, it took around an hour to crack the randomly generated password
+                that was set, as it was not contained in the wordlist, and had to be brute forced instead.
+
+                <br><br>
+                Now its time to generate this hash! We can type: <br><code>pdf2john (path to pdf) > (path where you want hash saved)</code><br>
+                <br>In my case I typed: <br><code>pdf2john ~/Desktop/dogpassword.pdf > ~/Desktop/dogpdf.hash</code>
+
+                <br><br>
+                Now we have the hash of this PDF! Mine looks something like this: <br><code>dogpassword.pdf:$pdf$5*6*256*-4*1*16*f2daf3da5cba4b8...</code>
+                
+
+            </p>
+            <hr class="text-hr">
+
+            <p class="b-text">
+                Now that we have this hash, we can start John!<br>
+                <br>The command we run is: <br><code>john (path to hash</code><br>
+                <br>For me it was: <br><code>john ~/Desktop/dogpdf.hash</code><br><br>
+
+                This will use the default JohnTheRipper wordlist, but if you want to use your own wordlist, you could generate one and type:
+                <br><code>john --wordlist=(path to wordlist) (path to hash)</code><br>
+
+                <br>And now we wait for John to crack our hash! Depending on the complexity and length of the password it could take a while. With sample123, it
+                took less than 10 seconds. You should see output similar to this:
+            </p>
+            <img src="./p2.png" data-lity class="photo"><br>
+
+            <p class="b-text">
+                As you can see, the password is displayed there. To display it more clearly, we can type: <br><code>john --show --format=PDF (path to hash)</code>
+                <br><br>For me I typed: <br><code>john --show --format=PDF ~/Desktop/dogpdf.hash</code>
+
+                <br><br>And get the output:
+            </p>
+            <img src="./p3.png" data-lity class="photo"><br>
+
+            <p class="b-text">
+                Now it is even easier to see the password of <code>sample123</code>. So lets test it!
+            </p>
+            <img src="./p4.png" data-lity class="photo"><br>
+
+            <p class="b-text">
+                <br>Voila! We successfully cracked the password of our pdf!
+            </p>
+
+            <hr class="text-hr">
+            
+            <h3>Conclusion</h3>
+            <p class="b-text">
+                Welp, that pretty much sums up my first real entry on this blog, I hope that it was either a good read or it helped you crack your PDF's password!
+            </p>
+
+
         </div>
 
 
